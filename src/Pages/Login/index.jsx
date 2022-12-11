@@ -7,11 +7,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input/index";
-import { Api } from "../../Lib/axios";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { motion } from "framer-motion";
+import { useContext } from "react";
+import { AuthContext } from "../../Contexts/AuthContext";
 
-const Login = ({ loading, setLoading, setUser }) => {
+const Login = () => {
+  const { userLogin, loading } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const loginSchema = yup.object().shape({
@@ -31,73 +35,79 @@ const Login = ({ loading, setLoading, setUser }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     mode: "onBlur",
     resolver: yupResolver(loginSchema),
   });
-  const userLogin = async (formData) => {
-    try {
-      setLoading(true);
-      const response = await Api.post("sessions", formData);
-      localStorage.setItem("@TOKEN", response.data.token);
-      localStorage.setItem("@USERID", response.data.user.id);
-      toast.success("Login realizado com sucesso!");
-      console.log(response);
-      setUser(response.data);
-    } catch (error) {
-      toast.error("Tente novamente!");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const submit = async (data) => {
     await userLogin(data);
-    console.log(data);
-    navigate("/home");
+    if (localStorage.getItem("@TOKEN")) {
+      setTimeout(() => {
+        navigate("/home");
+      }, 2000);
+      reset();
+    } else {
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+    reset();
   };
 
   return (
-    <DivForm>
-      <DivHeader>
-        <img src={Logo} alt="" />
-      </DivHeader>
-      <Form onSubmit={handleSubmit(submit)} noValidate>
-        <h3>Login</h3>
-        <Input
-          label={"Email"}
-          type="email"
-          placeholder="Digite aqui seu email"
-          register={register("email")}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+    >
+      <DivForm>
+        <DivHeader>
+          <img src={Logo} alt="" />
+        </DivHeader>
+        <Form onSubmit={handleSubmit(submit)} noValidate>
+          <h3>Login</h3>
+          <Input
+            label={"Email"}
+            type="email"
+            placeholder="Digite aqui seu email"
+            register={register("email")}
+          />
+          {errors.email?.message && <small>{errors.email.message}</small>}
+          <Input
+            label={"Senha"}
+            type="password"
+            placeholder="Digite aqui sua senha"
+            register={register("password")}
+          />
+          {errors.password?.message && <small>{errors.password.message}</small>}
+          <BtEntry
+            onSubmit={handleSubmit(submit)}
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Entrar"}
+          </BtEntry>
+          ;<p>Ainda não possui uma conta?</p>
+          <LinkRegister to={`/register`}>Cadastre-se</LinkRegister>
+        </Form>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
         />
-        {errors.email?.message && <small>{errors.email.message}</small>}
-        <Input
-          label={"Senha"}
-          type="password"
-          placeholder="Digite aqui sua senha"
-          register={register("password")}
-        />
-        {errors.password?.message && <small>{errors.password.message}</small>}
-        <BtEntry type="submit" disabled={loading}>
-          {loading ? "Loading..." : "Entrar"}
-        </BtEntry>
-        ;<p>Ainda não possui uma conta?</p>
-        <LinkRegister to={`/register`}>Cadastre-se</LinkRegister>
-      </Form>{" "}
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-    </DivForm>
+      </DivForm>
+    </motion.div>
   );
 };
 

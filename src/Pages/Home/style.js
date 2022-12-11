@@ -50,26 +50,25 @@ export const DivUser = styled.div`
   }
 `;
 
-export const DivBody = styled.div`
-  color: transparent;
+export const DivUl = styled.div`
+  width: 80%;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  color: #ffff;
+  font-family: "Inter";
+  justify-content: space-between;
+
+  h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: small;
+  }
+
   @media (min-width: 896px) {
     width: 50%;
-    display: flex;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    color: #ffff;
-    font-family: "Inter";
-    padding: 20px;
-
-    h3 {
-      margin-top: 30px;
-      margin-bottom: 15px;
-    }
-
-    p {
-      font-size: small;
-    }
   }
 `;
