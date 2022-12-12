@@ -7,7 +7,7 @@
 .modal-overlay {
   display: flex;
   justify-content: center;
-  background: rgba(18, 18, 20, 0.5);
+  background-color: rgba(18, 18, 20, 0.5);
   width: 100%;
   height: 100%;
   position: fixed;
@@ -21,7 +21,7 @@
   display: flex;
   justify-content: space-between;
   background-color: #343b41;
-  width: 369px;
+  width: 100%;
   height: 50px;
   padding: 12px 20px;
   color: #ffff;
@@ -32,9 +32,19 @@
 .modal-content {
   background-color: #212529;
   margin-top: 15%;
-  width: 369px;
-  max-height: 320px;
+  width: 250px;
+  max-height: 360px;
   border-radius: 4px;
+}
+
+@media (min-width: 416px) {
+  .modal-content {
+    background-color: #212529;
+    margin-top: 15%;
+    width: 369px;
+    max-height: 360px;
+    border-radius: 4px;
+  }
 }
 
 label {
@@ -72,4 +82,12 @@ select {
   font-weight: 400;
   font-size: 16px;
   margin-top: 20px;
+}
+small {
+  color: #ff577f;
+  margin-left: 10px;
+  margin-top: -10px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }

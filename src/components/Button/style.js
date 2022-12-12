@@ -91,7 +91,7 @@ export const BtEdit = styled.button`
   border: 1px solid #ff577f;
   border-radius: 4px;
   margin-left: 15px;
-  margin-right: 30px;
+
   margin-top: 10px;
   margin-bottom: 20px;
   cursor: pointer;
@@ -103,7 +103,7 @@ export const BtEdit = styled.button`
 `;
 
 export const BtRemove = styled.button`
-  width: 20%;
+  width: 30%;
   color: #f8f9fa;
   height: 48px;
   background: #868e96;

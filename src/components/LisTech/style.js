@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const UlList = styled.ul`
   width: 80%;
-  max-height: 400px;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;

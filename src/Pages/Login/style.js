@@ -38,7 +38,8 @@ export const Form = styled.form`
   }
 
   p {
-    margin-top: 36px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     color: #868e96;
     font-weight: 400;
     font-size: 12px;

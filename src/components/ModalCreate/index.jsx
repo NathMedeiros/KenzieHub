@@ -54,7 +54,7 @@ export const ModalCreate = () => {
             placeholder="Tecnologia"
             register={register("title")}
           />
-          {errors.title?.message && <small>{errors.email.message}</small>}
+          {errors.title?.message && <small>{errors.title.message}</small>}
           <label htmlFor="status"> Selecionar Modulo </label>
           <select name="status" id="status" {...register("status")}>
             <option value="Iniciante">Iniciante</option>

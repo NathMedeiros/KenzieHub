@@ -5,11 +5,18 @@ import ModalEdit from "../ModalEdit";
 import { List } from "./style";
 
 const ListTech = ({ elt }) => {
-  const { openEditModal, modalEditIsOpen } = useContext(TechContext);
+  const { openEditModal, modalEditIsOpen, setSelectTech } =
+    useContext(TechContext);
 
   return (
     <>
-      <List key={elt.id} onClick={openEditModal}>
+      <List
+        key={elt.id}
+        onClick={() => {
+          openEditModal();
+          setSelectTech(elt);
+        }}
+      >
         <h4>{elt.title}</h4>
         <p>{elt.status}</p>
       </List>

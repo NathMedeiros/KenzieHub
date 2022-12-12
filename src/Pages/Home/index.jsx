@@ -19,7 +19,7 @@ const Home = () => {
   if (newLoading) {
     return null;
   }
-  console.log(user);
+
   return user ? (
     <motion.div
       initial={{ opacity: 0 }}

@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     Api.defaults.headers.common["Authorization"] = `Bearer ${tokenValidate}`;
 
     try {
-      const response = await Api.get("/profile");
+      const response = await Api.get("profile");
 
       setUser(response.data);
     } catch (error) {
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
   const userLogin = async (formData) => {
     try {
       setLoading(true);
-      const response = await Api.post("/sessions", formData);
+      const response = await Api.post("sessions", formData);
       localStorage.setItem("@TOKENUSER", response.data.token);
 
       const { token, user: userResponse } = response.data;
@@ -67,8 +67,7 @@ export const AuthProvider = ({ children }) => {
   const UserRegister = async (formData) => {
     try {
       setLoading(true);
-      const response = await Api.post("/users", formData);
-      console.log(response);
+      await Api.post("/users", formData);
       toast.success("Usuario Cadastrado");
       setTimeout(() => {
         navigate("/");

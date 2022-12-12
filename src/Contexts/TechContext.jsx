@@ -18,7 +18,6 @@ export const TechProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   const technology = user?.techs;
-  console.log(technology);
 
   function openEditModal() {
     setModalIsOpen(true);
@@ -40,7 +39,6 @@ export const TechProvider = ({ children }) => {
     try {
       setLoading(true);
       await Api.post("users/techs", data);
-
       loadUser();
       setIsOpen(false);
       toast.success("Tecnologia cadastrada com sucesso!");
@@ -50,6 +48,34 @@ export const TechProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
+  async function TechDelete(id) {
+    try {
+      setLoading(true);
+
+      await Api.delete(`users/techs/${id}`);
+      loadUser();
+
+      toast.info("Tecnologia removida com sucesso!");
+    } catch (error) {
+      toast.error("Erro! Tente novamente!");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function TechEdit(data) {
+    try {
+      setLoading(true);
+      await Api.put(`users/techs/${data.id}`, data);
+      loadUser();
+      toast.success("Tecnologia atualizada com sucesso!");
+    } catch (error) {
+      toast.error("Erro! Tente novamente!");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <TechContext.Provider
@@ -66,6 +92,8 @@ export const TechProvider = ({ children }) => {
         setLoading,
         technology,
         techRegister,
+        TechEdit,
+        TechDelete,
       }}
     >
       {children}
