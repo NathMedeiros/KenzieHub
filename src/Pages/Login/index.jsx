@@ -47,12 +47,12 @@ const Login = () => {
     if (localStorage.getItem("@TOKEN")) {
       setTimeout(() => {
         navigate("/home");
-      }, 2000);
+      }, 4000);
       reset();
     } else {
       setTimeout(() => {
         navigate("/");
-      }, 2000);
+      }, 4000);
     }
     reset();
   };

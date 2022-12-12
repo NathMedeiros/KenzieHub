@@ -17,7 +17,8 @@ export const TechProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const techs = user?.techs;
+  const technology = user?.techs;
+  console.log(technology);
 
   function openEditModal() {
     setModalIsOpen(true);
@@ -39,6 +40,7 @@ export const TechProvider = ({ children }) => {
     try {
       setLoading(true);
       await Api.post("users/techs", data);
+
       loadUser();
       setIsOpen(false);
       toast.success("Tecnologia cadastrada com sucesso!");
@@ -62,7 +64,7 @@ export const TechProvider = ({ children }) => {
         setSelectTech,
         loading,
         setLoading,
-        techs,
+        technology,
         techRegister,
       }}
     >

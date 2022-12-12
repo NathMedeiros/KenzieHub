@@ -6,23 +6,20 @@ import { motion } from "framer-motion";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Navigate } from "react-router-dom";
 import newTech from "../../img/+.png";
-
 import ListTech from "../../components/LisTech/index";
-// import { useState } from "react";
 import ModalCreate from "../../components/ModalCreate";
 import { TechContext } from "../../Contexts/TechContext";
 import { UlList } from "../../components/LisTech/style";
-// import { UlList } from "../../components/LisTech/style";
 
 const Home = () => {
-  const { user, authLoading } = useContext(AuthContext);
+  const { user, newLoading } = useContext(AuthContext);
 
-  const { openModal, modalIsOpen, techs } = useContext(TechContext);
+  const { openModal, modalIsOpen, technology } = useContext(TechContext);
 
-  if (authLoading) {
+  if (newLoading) {
     return null;
   }
-
+  console.log(user);
   return user ? (
     <motion.div
       initial={{ opacity: 0 }}
@@ -57,7 +54,7 @@ const Home = () => {
         </BtNewTech>
       </DivUl>
       <UlList>
-        {techs.map((elt) => (
+        {technology.map((elt) => (
           <ListTech key={elt.id} elt={elt} />
         ))}
       </UlList>

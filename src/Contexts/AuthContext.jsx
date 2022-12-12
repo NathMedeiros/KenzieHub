@@ -10,29 +10,29 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
-  const [authLoading, setAuthLoading] = useState(true);
+  const [newLoading, setNewLoading] = useState(true);
   const navigate = useNavigate();
 
   async function loadUser() {
-    const token = localStorage.getItem("@TOKEN");
+    const tokenValidate = localStorage.getItem("@TOKEN");
 
-    if (!token) {
-      setAuthLoading(false);
+    if (!tokenValidate) {
+      setNewLoading(false);
       return;
     }
+    Api.defaults.headers.common["Authorization"] = `Bearer ${tokenValidate}`;
 
     try {
-      const response = await Api.get("profile");
-
-      Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      const response = await Api.get("/profile");
 
       setUser(response.data);
     } catch (error) {
       console.log(error);
     } finally {
-      setAuthLoading(false);
+      setNewLoading(false);
     }
   }
+
   useEffect(() => {
     loadUser();
   }, []);
@@ -40,22 +40,23 @@ export const AuthProvider = ({ children }) => {
   const userLogin = async (formData) => {
     try {
       setLoading(true);
-      const response = await Api.post("sessions", formData);
+      const response = await Api.post("/sessions", formData);
       localStorage.setItem("@TOKENUSER", response.data.token);
-      // localStorage.setItem("@USERID", response.data.user.id);
 
       const { token, user: userResponse } = response.data;
       setUser(userResponse);
 
       localStorage.setItem("@TOKEN", token);
 
+      toast.success("Login realizado com sucesso!");
+
       Api.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${response.data.token}`;
 
-      toast.success("Login realizado com sucesso!");
-      console.log(response);
-      setUser(response.data);
+      setTimeout(() => {
+        navigate("/home");
+      }, 3000);
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -66,7 +67,7 @@ export const AuthProvider = ({ children }) => {
   const UserRegister = async (formData) => {
     try {
       setLoading(true);
-      const response = await Api.post("users", formData);
+      const response = await Api.post("/users", formData);
       console.log(response);
       toast.success("Usuario Cadastrado");
       setTimeout(() => {
@@ -86,8 +87,8 @@ export const AuthProvider = ({ children }) => {
         user,
         loading,
         setLoading,
-        setAuthLoading,
-        authLoading,
+        setNewLoading,
+        newLoading,
         UserRegister,
         loadUser,
       }}

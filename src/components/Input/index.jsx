@@ -1,16 +1,7 @@
 import React from "react";
 import { InputRegister, Fieldset } from "./style";
 
-const Input = ({
-  name,
-  id,
-  label,
-  type,
-  value,
-  placeholder,
-  register,
-  disabled,
-}) => {
+const Input = ({ id, label, type, value, placeholder, register, disabled }) => {
   return (
     <Fieldset>
       <label htmlFor={id}>{label}</label>
@@ -19,7 +10,6 @@ const Input = ({
         value={value}
         disabled={disabled}
         placeholder={placeholder}
-        name={name}
         {...register}
       />
     </Fieldset>
