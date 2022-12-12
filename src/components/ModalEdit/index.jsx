@@ -11,8 +11,14 @@ import "../ModalCreate/style.css";
 Modal.setAppElement("#root");
 
 export const ModalEdit = () => {
-  const { modalEditIsOpen, closeEditModal, TechEdit, selectTech, TechDelete } =
-    useContext(TechContext);
+  const {
+    modalEditIsOpen,
+    closeEditModal,
+    TechEdit,
+    selectTech,
+    TechDelete,
+    loading,
+  } = useContext(TechContext);
 
   const techEditeSchema = yup.object().shape({
     title: yup.string().required("Este campo é obrigatorio!"),
@@ -58,6 +64,7 @@ export const ModalEdit = () => {
             type="title"
             placeholder="Projeto"
             register={register("title")}
+            disabled
           />
           {errors.title?.message && <small>{errors.title.message}</small>}
           <label htmlFor="status"> Status </label>
@@ -67,8 +74,16 @@ export const ModalEdit = () => {
             <option value="Avançado">Avançado</option>
           </select>
           <div>
-            <BtEdit type="submit">Salvar Alteração</BtEdit>
-            <BtRemove type="submit" onClick={() => TechDelete(selectTech.id)}>
+            <BtEdit type="submit">
+              {loading ? "Salvando..." : "Salvar Alteração"}
+            </BtEdit>
+            <BtRemove
+              type="submit"
+              onClick={() => {
+                closeEditModal();
+                TechDelete(selectTech.id);
+              }}
+            >
               Excluir
             </BtRemove>
           </div>

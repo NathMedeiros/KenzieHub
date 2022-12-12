@@ -69,6 +69,7 @@ export const TechProvider = ({ children }) => {
       setLoading(true);
       await Api.put(`users/techs/${data.id}`, data);
       loadUser();
+      setModalIsOpen(false);
       toast.success("Tecnologia atualizada com sucesso!");
     } catch (error) {
       toast.error("Erro! Tente novamente!");
