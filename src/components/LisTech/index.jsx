@@ -11,7 +11,6 @@ const ListTech = ({ elt }) => {
   return (
     <>
       <List
-        key={elt.id}
         onClick={() => {
           openEditModal();
           setSelectTech(elt);

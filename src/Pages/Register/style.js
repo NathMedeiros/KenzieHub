@@ -27,7 +27,7 @@ export const Form = styled.form`
   box-shadow: 0px 3px 31px -7px rgba(0, 0, 0, 0.25);
   border-radius: 3px;
   width: 95%;
-  height: 750px;
+  min-height: 750px;
 
   h3 {
     height: 8px;

@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../../components/Input/index";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { useContext } from "react";
@@ -142,18 +141,6 @@ const Register = () => {
             {loading ? "Cadastrando..." : "Cadastrar"}
           </ButtonRegister>
         </Form>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
       </DivForm>
     </motion.div>
   );

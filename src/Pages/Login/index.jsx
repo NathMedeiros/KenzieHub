@@ -7,7 +7,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input/index";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { useContext } from "react";
@@ -45,14 +44,11 @@ const Login = () => {
   const submit = async (data) => {
     await userLogin(data);
     if (localStorage.getItem("@TOKEN")) {
-      setTimeout(() => {
-        navigate("/home");
-      }, 4000);
+      navigate("/home");
+
       reset();
     } else {
-      setTimeout(() => {
-        navigate("/");
-      }, 4000);
+      navigate("/");
     }
     reset();
   };
@@ -94,18 +90,6 @@ const Login = () => {
           ;<p>Ainda não possui uma conta?</p>
           <LinkRegister to={`/register`}>Cadastre-se</LinkRegister>
         </Form>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
       </DivForm>
     </motion.div>
   );

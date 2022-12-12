@@ -38,6 +38,11 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const userLogin = async (formData) => {
+    const tokenValidate = localStorage.getItem("@TOKEN");
+    if (!tokenValidate) {
+      setNewLoading(false);
+      return;
+    }
     try {
       setLoading(true);
       const response = await Api.post("sessions", formData);
@@ -54,9 +59,7 @@ export const AuthProvider = ({ children }) => {
         "Authorization"
       ] = `Bearer ${response.data.token}`;
 
-      setTimeout(() => {
-        navigate("/home");
-      }, 3000);
+      navigate("/home");
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -69,9 +72,8 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       await Api.post("/users", formData);
       toast.success("Usuario Cadastrado");
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
+
+      navigate("/");
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
